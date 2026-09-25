@@ -43,14 +43,14 @@ export default function About() {
                   <p className="text-sm text-muted-foreground">{profile.role}</p>
                 </div>
               </div>
-              <ul className="mt-6 space-y-3 border-t border-white/[0.06] pt-6 text-sm">
+              <ul className="mt-6 space-y-3 border-t border-border pt-6 text-sm">
                 <li className="flex items-center gap-3 text-foreground/80">
                   <MapPin className="size-4 text-primary" />
                   {profile.location}
                 </li>
                 <li className="flex items-center gap-3 text-foreground/80">
                   <Mail className="size-4 text-primary" />
-                  <a href={`mailto:${profile.email}`} className="transition-colors hover:text-violet-300">
+                  <a href={`mailto:${profile.email}`} className="transition-colors hover:text-brand">
                     {profile.email}
                   </a>
                 </li>
@@ -65,7 +65,7 @@ export default function About() {
             return (
               <Reveal key={h.title} delay={i * 0.1}>
                 <SpotlightCard className="h-full p-6">
-                  <span className="grid size-11 place-items-center rounded-xl border border-primary/30 bg-primary/10 text-violet-300 transition-colors group-hover:bg-primary group-hover:text-white">
+                  <span className="grid size-11 place-items-center rounded-xl border border-primary/30 bg-primary/10 text-brand transition-colors group-hover:bg-primary group-hover:text-white">
                     <Icon className="size-5" />
                   </span>
                   <h3 className="mt-5 text-lg font-semibold">{h.title}</h3>

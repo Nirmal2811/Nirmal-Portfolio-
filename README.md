@@ -9,7 +9,10 @@ npm install
 npm run dev      # http://localhost:5173
 npm run build    # production build in dist/
 npm run preview  # serve the production build
+npm run mobile   # build + serve on your network, for testing on a phone
 ```
+
+To test on a phone, use `npm run mobile` and open the "Network" URL it prints. The dev server (`npm run dev`) sends development builds that aren't minified, so pages load several times slower than the real site, especially over Wi-Fi.
 
 ## Make it yours
 
@@ -23,21 +26,36 @@ npm run preview  # serve the production build
 
 The form is validated with Zod through React Hook Form. To receive submissions, copy `.env.example` to `.env` and set `VITE_CONTACT_ENDPOINT` to a service that accepts JSON POSTs, such as Formspree. If you don't set it, the form opens the visitor's email client with the message already filled in.
 
+## Pages
+
+| Route | Page |
+|---|---|
+| `/` | Home: hero, featured projects, contact prompt |
+| `/about` | About |
+| `/skills` | Skills |
+| `/projects` | All projects, filterable by category |
+| `/projects/:slug` | Project details |
+| `/experience` | Experience timeline |
+| `/contact` | Contact form |
+| anything else | 404 |
+
+Routes are defined in [`src/App.jsx`](src/App.jsx) and the navbar links in `navLinks` in [`src/data/portfolio.js`](src/data/portfolio.js). Every page except Home loads its code only when visited.
+
 ## Structure
 
 ```
 src/
   components/
-    layout/     Navbar, Footer, Layout, scroll progress, scroll manager
-    sections/   Hero, About, Skills, Work, Experience, Contact
+    layout/     Navbar, Footer, Layout, scroll progress, scroll reset, back-to-top
+    sections/   Hero, About, Skills, Work, Experience, Contact, ContactCTA
     ui/         shadcn/ui components (button, card, badge, input, textarea, label, form)
     motion/     Reveal (scroll-triggered animation)
   data/         portfolio.js — all site content
-  hooks/        useSectionNav (Lenis smooth scroll), useActiveSection
-  lib/          utils (cn), icons, contact schema + submit
-  pages/        Home, ProjectsPage, ProjectDetail, NotFound
+  hooks/        usePageMeta (page title), useBootReady, useMediaQuery
+  lib/          utils (cn), icons, scroll, contact schema + submit
+  pages/        one file per route
 ```
 
 ## Deploying
 
-This is a single-page app, so the host must send every route to `index.html`. On Vercel and Netlify, add a rewrite from `/*` to `/index.html` so links like `/projects/pulse-ui` work when opened directly.
+This is a single-page app, so the host must send every route to `index.html`, or opening `/about` directly returns the host's 404. This is already set up for Vercel ([`vercel.json`](vercel.json)) and Netlify ([`public/_redirects`](public/_redirects)). Other hosts need an equivalent rewrite rule.

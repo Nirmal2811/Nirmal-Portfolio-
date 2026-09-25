@@ -21,7 +21,7 @@ export default function SocialLinks({ className }) {
             target={href.startsWith('mailto:') ? undefined : '_blank'}
             rel="noreferrer"
             aria-label={label}
-            className="grid size-10 place-items-center rounded-full border border-white/10 bg-white/[0.02] text-muted-foreground transition-all hover:-translate-y-0.5 hover:border-primary/50 hover:bg-primary/15 hover:text-violet-200"
+            className="grid size-10 place-items-center rounded-full border border-border bg-foreground/[0.02] text-muted-foreground transition-all hover:-translate-y-0.5 hover:border-primary/50 hover:bg-primary/15 hover:text-brand"
           >
             <Icon className="size-4" />
           </a>

@@ -2,8 +2,14 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* Black & purple palette (shadcn/ui token names) */
-:root {
+/*
+ * Theme tokens (shadcn/ui names). Dark (black & purple) is the default.
+ * <html> gets class "dark" or "light" (see index.html + src/lib/theme.js).
+ * Any element with class "dark" re-applies the dark palette to itself, which
+ * keeps "always dark" pieces (code window, terminal, project art) dark in light mode.
+ */
+:root,
+.dark {
   --radius: 0.875rem;
 
   --background: #07060b;
@@ -30,6 +36,48 @@
   --ring: #a78bfa;
 
   --glow: #a855f7;
+  --brand: #c4b5fd; /* purple text/icons on the page background */
+  --grid-line: rgb(255 255 255 / 0.04);
+  --nav-shadow: rgb(0 0 0 / 0.8);
+  --gradient-text: linear-gradient(120deg, #f5f3ff 0%, #c4b5fd 40%, #a855f7 75%, #7c3aed 100%);
+  color-scheme: dark;
+}
+
+.light {
+  --background: #f7f5fc;
+  --foreground: #16121f;
+
+  --card: #ffffff;
+  --card-foreground: #16121f;
+  --popover: #ffffff;
+  --popover-foreground: #16121f;
+
+  --primary: #7c3aed;
+  --primary-foreground: #ffffff;
+  --secondary: #efeaf9;
+  --secondary-foreground: #2e1065;
+
+  --muted: #f0ecf7;
+  --muted-foreground: #5f5875;
+  --accent: #ede5ff;
+  --accent-foreground: #4c1d95;
+
+  --destructive: #e11d48;
+  --border: rgb(22 18 31 / 0.1);
+  --input: rgb(22 18 31 / 0.14);
+  --ring: #7c3aed;
+
+  --glow: #a855f7;
+  --brand: #6d28d9;
+  --grid-line: rgb(22 18 31 / 0.05);
+  --nav-shadow: rgb(76 29 149 / 0.16);
+  --gradient-text: linear-gradient(120deg, #2e1065 0%, #6d28d9 40%, #9333ea 75%, #c026d3 100%);
+  color-scheme: light;
+}
+
+/* "Always dark" islands inside a light page also need the dark text color, not the inherited one */
+.light .dark {
+  color: var(--foreground);
 }
 
 @theme inline {
@@ -61,9 +109,15 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
   --color-glow: var(--glow);
+  --color-brand: var(--brand);
 
   --animate-marquee: marquee 40s linear infinite;
   --animate-pulse-slow: pulse-slow 6s ease-in-out infinite;
+  --animate-caret: caret 1s steps(1) infinite;
+
+  @keyframes caret {
+    50% { opacity: 0; }
+  }
 
   @keyframes marquee {
     from { transform: translateX(0); }
@@ -78,9 +132,6 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
-  }
-  html {
-    color-scheme: dark;
   }
   body {
     @apply bg-background text-foreground font-sans antialiased;
@@ -109,15 +160,20 @@ html.lenis body {
 
 @layer utilities {
   .text-gradient {
-    background: linear-gradient(120deg, #f5f3ff 0%, #c4b5fd 40%, #a855f7 75%, #7c3aed 100%);
+    background: var(--gradient-text);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
+  /* Slow shimmer across a .text-gradient (must come after it so background-size wins) */
+  .animate-gradient-x {
+    background-size: 200% auto;
+    animation: gradient-x 6s ease-in-out infinite;
+  }
   .bg-grid {
     background-image:
-      linear-gradient(to right, rgb(255 255 255 / 0.04) 1px, transparent 1px),
-      linear-gradient(to bottom, rgb(255 255 255 / 0.04) 1px, transparent 1px);
+      linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
     background-size: 56px 56px;
   }
   .mask-fade-y {
@@ -136,9 +192,23 @@ html.lenis body {
   }
 }
 
+@keyframes gradient-x {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Theme switch: the new theme is revealed with a growing circle (animated in ThemeToggle.jsx) */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-marquee,
-  .animate-pulse-slow {
+  .animate-pulse-slow,
+  .animate-gradient-x,
+  .animate-caret {
     animation: none;
   }
 }

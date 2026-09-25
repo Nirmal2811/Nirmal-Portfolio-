@@ -5,16 +5,176 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#07060b" />
+    <!-- Apply the saved theme before first paint (no flash). Dark is the default. -->
+    <script>
+      (function () {
+        var theme = 'dark';
+        try {
+          if (localStorage.getItem('theme') === 'light') theme = 'light';
+        } catch (e) {}
+        var root = document.documentElement;
+        root.classList.remove('dark', 'light');
+        root.classList.add(theme);
+        if (theme === 'light') document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f5fc');
+      })();
+    </script>
     <meta name="description" content="Nirmal — software developer building fast, accessible, and delightful web experiences." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Load fonts without blocking the first paint -->
     <link
+      rel="preload"
+      as="style"
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap"
-      rel="stylesheet"
+      onload="this.onload=null;this.rel='stylesheet'"
     />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap"
+      />
+    </noscript>
+    <!-- Boot loader styles: inline so the terminal paints before any CSS/JS arrives -->
+    <style>
+      html, body { margin: 0; background: #07060b; color: #f3f0fa; }
+      html.light, html.light body { background: #f7f5fc; color: #16121f; }
+      html.light #boot {
+        background: radial-gradient(ellipse 60% 45% at 50% 45%, rgb(139 92 246 / 0.16), transparent 70%), #f7f5fc;
+      }
+      html.light .boot-term { box-shadow: 0 0 0 1px rgb(124 58 237 / 0.18), 0 24px 70px -24px rgb(76 29 149 / 0.45); }
+      #boot {
+        position: fixed; inset: 0; z-index: 9999; display: grid; place-items: center; padding: 16px;
+        background: radial-gradient(ellipse 60% 45% at 50% 45%, rgb(109 40 217 / 0.22), transparent 70%), #07060b;
+        font: 13px/1.9 "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        transition: opacity 0.35s ease, visibility 0.35s;
+      }
+      #boot.boot-hide { opacity: 0; visibility: hidden; }
+      #boot.boot-hide .boot-term { transform: scale(0.97) translateY(-6px); }
+      .boot-term {
+        width: min(100%, 440px); overflow: hidden; border-radius: 14px; color: #f3f0fa;
+        border: 1px solid rgb(255 255 255 / 0.1); background: rgb(11 9 19 / 0.92);
+        box-shadow: 0 0 0 1px rgb(139 92 246 / 0.12), 0 24px 80px -20px rgb(139 92 246 / 0.55);
+        transition: transform 0.35s ease;
+      }
+      .boot-bar {
+        display: flex; align-items: center; gap: 7px; padding: 10px 14px;
+        border-bottom: 1px solid rgb(255 255 255 / 0.06); color: #9d96b0; font-size: 11px;
+      }
+      .boot-bar i { width: 10px; height: 10px; border-radius: 50%; background: #ff5f57; }
+      .boot-bar i:nth-child(2) { background: #febc2e; }
+      .boot-bar i:nth-child(3) { background: #28c840; }
+      .boot-bar span { margin-left: auto; margin-right: auto; padding-right: 44px; }
+      .boot-body { padding: 16px 18px 18px; }
+      .boot-body p {
+        margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        opacity: 0; transform: translateY(4px);
+        animation: boot-line 0.28s ease forwards; animation-delay: calc(var(--d) * 90ms);
+      }
+      .boot-body b { font-weight: 500; }
+      .b-arrow { color: #34d399; } .b-dir { color: #a78bfa; } .b-dim { color: #6f6886; }
+      .b-ok { color: #34d399; } .b-spin { color: #c084fc; display: inline-block; width: 1ch; }
+      .b-muted { color: #9d96b0; }
+      .b-cur {
+        display: inline-block; width: 7px; height: 14px; margin-left: 4px; vertical-align: -2px;
+        background: #8b5cf6; animation: boot-blink 1s steps(1) infinite;
+      }
+      .boot-prog {
+        display: flex; align-items: center; gap: 12px; margin-top: 12px;
+        opacity: 0; animation: boot-line 0.28s ease forwards; animation-delay: calc(var(--d) * 90ms);
+      }
+      .boot-track { flex: 1; height: 6px; border-radius: 99px; background: rgb(255 255 255 / 0.06); overflow: hidden; }
+      .boot-fill {
+        height: 100%; transform: scaleX(0); transform-origin: left;
+        background: linear-gradient(90deg, #7c3aed, #a855f7, #e879f9);
+        box-shadow: 0 0 12px rgb(168 85 247 / 0.8);
+      }
+      .boot-pct { width: 4ch; text-align: right; color: #c4b5fd; font-variant-numeric: tabular-nums; }
+      @keyframes boot-line { to { opacity: 1; transform: none; } }
+      @keyframes boot-blink { 50% { opacity: 0; } }
+      @media (prefers-reduced-motion: reduce) {
+        .boot-body p, .boot-prog { animation: none; opacity: 1; transform: none; }
+        .b-cur { animation: none; }
+        #boot, .boot-term { transition: none; }
+      }
+    </style>
     <title>Nirmal · Software Developer</title>
   </head>
   <body>
+    <div id="boot" role="status" aria-live="polite" aria-label="Loading portfolio">
+      <div class="boot-term" aria-hidden="true">
+        <div class="boot-bar"><i></i><i></i><i></i><span>~/nirmal.dev — zsh</span></div>
+        <div class="boot-body">
+          <p style="--d:0"><b class="b-arrow">➜</b> <b class="b-dir">~/nirmal.dev</b> npm run portfolio</p>
+          <p style="--d:1" class="b-dim">&gt; nirmal.dev@1.0.0 start</p>
+          <p style="--d:2"><b class="b-ok">✓</b> <span class="b-muted">resolving modules</span></p>
+          <p style="--d:3"><b class="b-ok">✓</b> <span class="b-muted">compiling components</span></p>
+          <p style="--d:4"><b class="b-ok">✓</b> <span class="b-muted">loading assets</span></p>
+          <p style="--d:5" id="boot-status"><b class="b-spin" id="boot-spin">⠋</b> mounting app<span class="b-cur"></span></p>
+          <div class="boot-prog" style="--d:6">
+            <div class="boot-track"><div class="boot-fill" id="boot-fill"></div></div>
+            <span class="boot-pct" id="boot-pct">0%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      // Terminal boot loader. React calls window.__bootDone() once mounted (see App.jsx);
+      // the loader then completes its progress bar, prints "ready", and fades out.
+      (function () {
+        var start = performance.now();
+        var MIN_MS = 800; // long enough for the boot lines to play
+        var FILL_MS = 220; // time to run the bar to 100% once the app is ready
+        var FAILSAFE_MS = 10000;
+        var frames = '⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏';
+        var boot = document.getElementById('boot');
+        var fill = document.getElementById('boot-fill');
+        var pctEl = document.getElementById('boot-pct');
+        var spin = document.getElementById('boot-spin');
+        var pct = 0, ready = false, called = false, readyAt = 0, finished = false;
+        var fillFrom = 0, fillStart = 0;
+        window.__booted = false;
+
+        // Time-based (not per-frame) so a busy main thread can't stretch the loader out.
+        function tick(now) {
+          spin.textContent = frames[Math.floor(now / 80) % frames.length];
+          if (!ready) {
+            pct = 90 * (1 - Math.exp(-(now - start) / 450)); // eases toward 90% while loading
+          } else {
+            if (!fillStart) { fillStart = now; fillFrom = pct; }
+            var k = Math.min(1, (now - fillStart) / FILL_MS);
+            // Snap to exactly 100 at the end; the eased sum can land on 99.999…
+            pct = k === 1 ? 100 : fillFrom + (100 - fillFrom) * (1 - (1 - k) * (1 - k));
+          }
+          fill.style.transform = 'scaleX(' + pct / 100 + ')';
+          pctEl.textContent = Math.floor(pct) + '%';
+          if (pct < 100) requestAnimationFrame(tick);
+          else finish();
+        }
+
+        function finish() {
+          if (finished) return;
+          finished = true;
+          document.getElementById('boot-status').innerHTML =
+            '<b class="b-ok">✓</b> ready in <b class="b-dir">' + Math.round(readyAt - start) + ' ms</b>';
+          setTimeout(function () {
+            boot.classList.add('boot-hide');
+            window.__booted = true;
+            window.dispatchEvent(new Event('boot:done'));
+            setTimeout(function () { boot.remove(); }, 400);
+          }, 200);
+        }
+
+        window.__bootDone = function () {
+          if (called) return;
+          called = true;
+          readyAt = performance.now();
+          setTimeout(function () { ready = true; }, Math.max(0, MIN_MS - (readyAt - start)));
+        };
+
+        setTimeout(window.__bootDone, FAILSAFE_MS);
+        requestAnimationFrame(tick);
+      })();
+    </script>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

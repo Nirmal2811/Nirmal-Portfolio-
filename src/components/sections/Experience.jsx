@@ -27,7 +27,7 @@ export default function Experience() {
 
         <ol ref={listRef} className="relative ml-3 space-y-12 md:ml-0">
           {/* Timeline track + scroll-linked fill */}
-          <span aria-hidden className="absolute top-2 bottom-2 left-0 w-px bg-white/10 md:left-[220px]" />
+          <span aria-hidden className="absolute top-2 bottom-2 left-0 w-px bg-foreground/10 md:left-[220px]" />
           <motion.span
             aria-hidden
             style={{ scaleY }}
@@ -44,7 +44,7 @@ export default function Experience() {
               </span>
 
               <Reveal delay={0.05} className="md:pr-10 md:text-right">
-                <p className="font-mono text-sm text-violet-300">{job.period}</p>
+                <p className="font-mono text-sm text-brand">{job.period}</p>
                 <p className="mt-1 inline-flex items-center gap-1.5 text-xs text-muted-foreground">
                   <MapPin className="size-3" />
                   {job.location}
@@ -52,9 +52,9 @@ export default function Experience() {
               </Reveal>
 
               <Reveal delay={0.1 + i * 0.03} className="md:pl-10">
-                <div className="rounded-2xl border border-white/[0.07] bg-card/60 p-6 backdrop-blur-sm transition-colors hover:border-primary/35">
+                <div className="rounded-2xl border border-border bg-card/60 p-6 backdrop-blur-sm transition-colors hover:border-primary/35">
                   <h3 className="text-xl font-semibold">{job.role}</h3>
-                  <p className="mt-1 inline-flex items-center gap-2 text-sm text-violet-200">
+                  <p className="mt-1 inline-flex items-center gap-2 text-sm text-brand">
                     <Briefcase className="size-3.5" />
                     {job.company}
                   </p>

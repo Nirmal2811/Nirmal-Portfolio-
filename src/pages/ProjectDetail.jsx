@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { Link, useParams } from 'react-router'
 import { ArrowLeft, ArrowRight, Calendar, CircleCheck, ExternalLink, User } from 'lucide-react'
 
@@ -8,7 +7,8 @@ import ProjectCover from '@/components/ProjectCover'
 import Reveal from '@/components/motion/Reveal'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { profile, projects } from '@/data/portfolio'
+import { projects } from '@/data/portfolio'
+import { usePageMeta } from '@/hooks/usePageMeta'
 import NotFound from '@/pages/NotFound'
 
 export default function ProjectDetail() {
@@ -17,9 +17,7 @@ export default function ProjectDetail() {
   const project = projects[index]
   const next = projects[(index + 1) % projects.length]
 
-  useEffect(() => {
-    if (project) document.title = `${project.title} · ${profile.name}`
-  }, [project])
+  usePageMeta(project ? project.title : 'Page not found')
 
   if (!project) return <NotFound />
 
@@ -64,7 +62,7 @@ export default function ProjectDetail() {
       </div>
 
       <Reveal className="group mt-12">
-        <ProjectCover project={project} large className="aspect-[16/8] rounded-3xl border border-white/10" />
+        <ProjectCover project={project} large className="aspect-[16/8] rounded-3xl border border-border" />
       </Reveal>
 
       <div className="mt-14 grid gap-12 md:grid-cols-[1fr_260px]">
@@ -86,7 +84,7 @@ export default function ProjectDetail() {
           </Reveal>
         </div>
 
-        <Reveal delay={0.15} as="aside" className="h-fit space-y-6 rounded-2xl border border-white/[0.07] bg-card/60 p-6">
+        <Reveal delay={0.15} as="aside" className="h-fit space-y-6 rounded-2xl border border-border bg-card/60 p-6">
           <div>
             <p className="font-mono text-xs tracking-widest text-muted-foreground uppercase">Role</p>
             <p className="mt-2 inline-flex items-center gap-2 text-sm">
@@ -111,15 +109,15 @@ export default function ProjectDetail() {
         <Reveal className="mt-20">
           <Link
             to={`/projects/${next.slug}`}
-            className="group flex items-center justify-between gap-6 rounded-2xl border border-white/[0.07] bg-card/60 p-6 transition-colors hover:border-primary/40 sm:p-8"
+            className="group flex items-center justify-between gap-6 rounded-2xl border border-border bg-card/60 p-6 transition-colors hover:border-primary/40 sm:p-8"
           >
             <div>
               <p className="font-mono text-xs tracking-widest text-muted-foreground uppercase">Next project</p>
-              <p className="mt-2 font-display text-2xl font-semibold transition-colors group-hover:text-violet-200 sm:text-3xl">
+              <p className="mt-2 font-display text-2xl font-semibold transition-colors group-hover:text-brand sm:text-3xl">
                 {next.title}
               </p>
             </div>
-            <span className="grid size-12 shrink-0 place-items-center rounded-full border border-white/10 transition-all group-hover:border-primary group-hover:bg-primary group-hover:text-white">
+            <span className="grid size-12 shrink-0 place-items-center rounded-full border border-border transition-all group-hover:border-primary group-hover:bg-primary group-hover:text-white">
               <ArrowRight className="size-5 transition-transform group-hover:translate-x-0.5" />
             </span>
           </Link>

@@ -1,16 +1,13 @@
-import { useEffect } from 'react'
 import { Link } from 'react-router'
 import { motion } from 'framer-motion'
 import { ArrowLeft } from 'lucide-react'
 
 import PageTransition from '@/components/PageTransition'
 import { Button } from '@/components/ui/button'
-import { profile } from '@/data/portfolio'
+import { usePageMeta } from '@/hooks/usePageMeta'
 
 export default function NotFound() {
-  useEffect(() => {
-    document.title = `Page not found · ${profile.name}`
-  }, [])
+  usePageMeta('Page not found')
 
   return (
     <PageTransition className="relative mx-auto flex min-h-[80dvh] max-w-3xl flex-col items-center justify-center px-4 pt-28 text-center">

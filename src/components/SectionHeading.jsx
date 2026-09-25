@@ -7,7 +7,7 @@ export default function SectionHeading({ index, eyebrow, title, description, ali
       <Reveal>
         <p
           className={cn(
-            'mb-4 flex items-center gap-3 font-mono text-xs tracking-[0.2em] text-violet-300 uppercase',
+            'mb-4 flex items-center gap-3 font-mono text-xs tracking-[0.2em] text-brand uppercase',
             align === 'center' && 'justify-center'
           )}
         >

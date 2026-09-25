@@ -1,26 +1,16 @@
-import { useEffect } from 'react'
-
 import Hero from '@/components/sections/Hero'
-import About from '@/components/sections/About'
-import Skills from '@/components/sections/Skills'
-import Work from '@/components/sections/Work'
-import Experience from '@/components/sections/Experience'
-import Contact from '@/components/sections/Contact'
-import { profile } from '@/data/portfolio'
+import Services from '@/components/sections/Services'
+import ContactCTA from '@/components/sections/ContactCTA'
+import { usePageMeta } from '@/hooks/usePageMeta'
 
 export default function Home() {
-  useEffect(() => {
-    document.title = `${profile.name} · ${profile.role}`
-  }, [])
+  usePageMeta()
 
   return (
     <>
       <Hero />
-      <About />
-      <Skills />
-      <Work />
-      <Experience />
-      <Contact />
+      <Services />
+      <ContactCTA />
     </>
   )
 }

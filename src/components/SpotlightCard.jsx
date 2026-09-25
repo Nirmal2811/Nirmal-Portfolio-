@@ -12,7 +12,7 @@ export default function SpotlightCard({ className, children, ...props }) {
     <div
       onPointerMove={handleMove}
       className={cn(
-        'group relative overflow-hidden rounded-2xl border border-white/[0.07] bg-card/60 backdrop-blur-sm transition-colors duration-300 hover:border-primary/35',
+        'group relative overflow-hidden rounded-2xl border border-border bg-card/60 backdrop-blur-sm transition-colors duration-300 hover:border-primary/35',
         className
       )}
       {...props}

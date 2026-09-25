@@ -1,19 +1,18 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 
 import PageTransition from '@/components/PageTransition'
 import ProjectCard from '@/components/ProjectCard'
 import SectionHeading from '@/components/SectionHeading'
-import { profile, projectCategories, projects } from '@/data/portfolio'
+import { projectCategories, projects } from '@/data/portfolio'
+import { usePageMeta } from '@/hooks/usePageMeta'
 import { cn } from '@/lib/utils'
 
 export default function ProjectsPage() {
   const [filter, setFilter] = useState('All')
   const visible = filter === 'All' ? projects : projects.filter((p) => p.category === filter)
 
-  useEffect(() => {
-    document.title = `Projects · ${profile.name}`
-  }, [])
+  usePageMeta('Projects')
 
   return (
     <PageTransition className="mx-auto max-w-6xl px-4 pt-36 pb-12 sm:px-6">
@@ -41,8 +40,8 @@ export default function ProjectsPage() {
               className={cn(
                 'relative isolate cursor-pointer rounded-full border px-4 py-2 text-sm transition-colors',
                 selected
-                  ? 'border-primary/50 text-white'
-                  : 'border-white/10 text-muted-foreground hover:border-white/20 hover:text-foreground'
+                  ? 'border-primary/50 text-foreground'
+                  : 'border-border text-muted-foreground hover:border-foreground/20 hover:text-foreground'
               )}
             >
               {selected && (

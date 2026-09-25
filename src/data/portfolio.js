@@ -24,11 +24,12 @@ export const profile = {
 }
 
 export const navLinks = [
-  { id: 'about', label: 'About' },
-  { id: 'skills', label: 'Skills' },
-  { id: 'work', label: 'Work' },
-  { id: 'experience', label: 'Experience' },
-  { id: 'contact', label: 'Contact' },
+  { to: '/', label: 'Home' },
+  { to: '/about', label: 'About' },
+  { to: '/skills', label: 'Skills' },
+  { to: '/projects', label: 'Work' },
+  { to: '/experience', label: 'Experience' },
+  { to: '/contact', label: 'Contact' },
 ]
 
 export const about = {
@@ -54,6 +55,41 @@ export const about = {
     },
   ],
 }
+
+// Home page "What I do" section
+export const services = [
+  {
+    icon: 'MonitorSmartphone',
+    title: 'Web applications',
+    text: 'Responsive, production-ready apps built with React and a clean, scalable architecture.',
+    points: ['SPAs & dashboards', 'Auth, forms & state', 'Mobile-first layouts'],
+  },
+  {
+    icon: 'Server',
+    title: 'APIs & backend',
+    text: 'Reliable Node.js services and data models that are easy to extend and simple to operate.',
+    points: ['REST & GraphQL APIs', 'PostgreSQL & MongoDB', 'Auth & payments'],
+  },
+  {
+    icon: 'Blocks',
+    title: 'Design systems',
+    text: 'Reusable, accessible component libraries that keep large products consistent.',
+    points: ['Component libraries', 'Theme tokens', 'Docs & Storybook'],
+  },
+  {
+    icon: 'Gauge',
+    title: 'Performance & a11y',
+    text: 'Audits and fixes that make existing products faster and usable by everyone.',
+    points: ['Core Web Vitals', 'Bundle optimisation', 'WCAG accessibility'],
+  },
+]
+
+export const process = [
+  { icon: 'Search', command: 'discover', text: 'Understand the goals, users and constraints.' },
+  { icon: 'PenTool', command: 'design', text: 'Map the flows and agree on the plan.' },
+  { icon: 'Hammer', command: 'build', text: 'Ship in small, reviewable increments.' },
+  { icon: 'Rocket', command: 'launch', text: 'Deploy, measure and keep improving.' },
+]
 
 export const skillGroups = [
   {

@@ -8,7 +8,7 @@ export default function ProjectCover({ project, className, large = false }) {
   return (
     <div
       className={cn(
-        'relative isolate overflow-hidden bg-gradient-to-br from-violet-950 via-[#120b22] to-black',
+        'dark relative isolate overflow-hidden bg-gradient-to-br from-violet-950 via-[#120b22] to-black',
         className
       )}
     >

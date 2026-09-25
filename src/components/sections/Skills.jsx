@@ -10,7 +10,7 @@ function Marquee() {
   const items = [...marquee, ...marquee]
 
   return (
-    <div className="group relative mt-16 overflow-hidden border-y border-white/[0.06] py-6 mask-fade-x">
+    <div className="group relative mt-16 overflow-hidden border-y border-border py-6 mask-fade-x">
       <ul className="animate-marquee flex w-max group-hover:[animation-play-state:paused]">
         {items.map((item, i) => (
           <li
@@ -62,7 +62,7 @@ export default function Skills() {
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.2 + j * 0.04, duration: 0.3 }}
-                        className="rounded-lg border border-white/[0.08] bg-white/[0.03] px-3 py-1.5 text-sm text-foreground/85 transition-colors hover:border-primary/50 hover:bg-primary/15 hover:text-white"
+                        className="rounded-lg border border-border bg-foreground/[0.03] px-3 py-1.5 text-sm text-foreground/85 transition-colors hover:border-primary/50 hover:bg-primary/15 hover:text-foreground"
                       >
                         {skill}
                       </motion.li>

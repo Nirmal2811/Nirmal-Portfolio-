@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import { Outlet } from 'react-router'
 
 import Navbar from '@/components/layout/Navbar'
@@ -20,7 +21,9 @@ export default function Layout() {
 
       <Navbar />
       <main>
-        <Outlet />
+        <Suspense fallback={<div className="min-h-dvh" />}>
+          <Outlet />
+        </Suspense>
       </main>
       <Footer />
       <BackToTop />

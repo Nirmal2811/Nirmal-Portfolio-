@@ -3,7 +3,7 @@ import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'framer-
 import { useLenis } from 'lenis/react'
 import { ArrowUp } from 'lucide-react'
 
-import { scrollToSection } from '@/hooks/useSectionNav'
+import { scrollToSection } from '@/lib/scroll'
 
 /** Back-to-top control styled as a tiny terminal running `cd /top`. */
 export default function BackToTop() {
@@ -37,7 +37,7 @@ export default function BackToTop() {
           exit={{ opacity: 0, y: 16, scale: 0.95 }}
           whileHover={{ y: -3 }}
           whileTap={{ scale: 0.97 }}
-          className="group fixed right-4 bottom-4 z-40 cursor-pointer overflow-hidden rounded-xl border border-white/10 bg-[#0b0913]/90 text-left font-mono shadow-[0_12px_40px_-12px_rgb(139_92_246/0.7)] backdrop-blur-md transition-colors hover:border-primary/50 sm:right-6 sm:bottom-6 sm:w-52"
+          className="dark group fixed right-4 bottom-4 z-40 cursor-pointer overflow-hidden rounded-xl border border-white/10 bg-[#0b0913]/90 text-left font-mono shadow-[0_12px_40px_-12px_rgb(139_92_246/0.7)] backdrop-blur-md transition-colors hover:border-primary/50 sm:right-6 sm:bottom-6 sm:w-52"
         >
           {/* Title bar */}
           <span
