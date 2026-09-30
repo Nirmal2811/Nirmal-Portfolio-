@@ -163,7 +163,6 @@ export default function Hero() {
     <section ref={ref} id="top" className="relative flex min-h-dvh items-center overflow-hidden pt-28 pb-16">
       {/* Background */}
       <motion.div aria-hidden style={{ y: bgY }} className="pointer-events-none absolute inset-0 -z-10">
-        <div className="bg-grid absolute inset-0 mask-fade-y" />
         <div className="animate-pulse-slow absolute top-[12%] left-[8%] size-72 rounded-full bg-violet-600/30 blur-[100px]" />
         <div className="animate-pulse-slow absolute right-[6%] bottom-[10%] size-96 rounded-full bg-purple-700/25 blur-[120px] [animation-delay:2s]" />
       </motion.div>
@@ -257,8 +256,8 @@ export default function Hero() {
 
       <motion.button
         type="button"
-        onClick={() => scrollToSection(lenis, 'services')}
-        aria-label="Scroll to what I do"
+        onClick={() => scrollToSection(lenis, 'showreel')}
+        aria-label="Scroll down"
         initial={{ opacity: 0 }}
         animate={ready ? { opacity: 1, y: [0, 8, 0] } : undefined}
         transition={{ opacity: { delay: 1 }, y: { duration: 2, repeat: Infinity, ease: 'easeInOut' } }}

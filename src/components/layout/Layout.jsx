@@ -9,7 +9,9 @@ import BackToTop from '@/components/layout/BackToTop'
 
 export default function Layout() {
   return (
-    <div className="relative min-h-dvh overflow-x-clip">
+    // "isolate" gives the page its own stacking context, so -z-10 backgrounds
+    // (ambient glow, the home video) render above the body color, not behind it.
+    <div className="relative isolate min-h-dvh overflow-x-clip">
       <ScrollManager />
       <ScrollProgress />
 

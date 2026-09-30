@@ -6,3 +6,6 @@ dist-ssr
 .env.*
 !.env.example
 .DS_Store
+
+# Source video frames (the web-sized versions live in public/sequence)
+*-frames.zip

@@ -21,6 +21,11 @@ To test on a phone, use `npm run mobile` and open the "Network" URL it prints. T
 - **Resume**: put your CV at `public/resume.pdf` for the "Download CV" button.
 - **Project images**: [`src/components/ProjectCover.jsx`](src/components/ProjectCover.jsx) generates artwork. Swap it for an `<img>` when you have screenshots.
 - **Theme colors**: the CSS variables at the top of [`src/index.css`](src/index.css).
+- **Scroll-driven videos**: the home page has two image sequences that play as you scroll: the full-page background ([`HomeBackdrop.jsx`](src/components/HomeBackdrop.jsx)) and the 3D card ([`Showreel.jsx`](src/components/sections/Showreel.jsx), captions in `showreel` in `portfolio.js`). To replace one, export the video's frames (JPG/PNG) into a zip or folder and run (needs `pip install pillow`):
+  - `python scripts/make-sequence.py backdrop background path/to/frames.zip` for the background (landscape video)
+  - `python scripts/make-sequence.py showreel card path/to/frames.zip` for the card (portrait video)
+
+  This rewrites `public/sequence/<name>/` and updates `src/data/sequences.json`.
 
 ## Contact form
 

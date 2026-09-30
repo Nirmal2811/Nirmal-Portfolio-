@@ -56,6 +56,31 @@ export const about = {
   ],
 }
 
+// Home page scroll-scrubbed banner (frames live in public/sequence, see scripts/make-sequence.py)
+export const showreel = {
+  track: 'focus-mix.mp3',
+  artist: 'nirmal.dev',
+  duration: 210, // seconds shown on the player; purely decorative
+  steps: [
+    {
+      eyebrow: 'Now playing',
+      title: 'Code is my rhythm.',
+      text: 'Every project starts with a beat — a real problem worth solving well.',
+    },
+    {
+      eyebrow: 'In the zone',
+      title: 'Crafted frame by frame.',
+      text: 'Interfaces tuned and re-tuned until every interaction feels just right.',
+    },
+    {
+      eyebrow: 'On repeat',
+      title: 'Let’s make something that moves.',
+      text: 'Got an idea you can’t stop thinking about? I’d love to hear it.',
+      cta: { label: 'Start a conversation', to: '/contact' },
+    },
+  ],
+}
+
 // Home page "What I do" section
 export const services = [
   {

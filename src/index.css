@@ -114,6 +114,12 @@
   --animate-marquee: marquee 40s linear infinite;
   --animate-pulse-slow: pulse-slow 6s ease-in-out infinite;
   --animate-caret: caret 1s steps(1) infinite;
+  --animate-eq: eq 0.9s ease-in-out infinite alternate;
+
+  @keyframes eq {
+    0% { transform: scaleY(0.25); }
+    100% { transform: scaleY(1); }
+  }
 
   @keyframes caret {
     50% { opacity: 0; }
@@ -208,7 +214,8 @@ html.lenis body {
   .animate-marquee,
   .animate-pulse-slow,
   .animate-gradient-x,
-  .animate-caret {
+  .animate-caret,
+  .animate-eq {
     animation: none;
   }
 }

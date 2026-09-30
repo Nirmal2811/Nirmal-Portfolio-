@@ -1,0 +1,30 @@
+{
+  "showreel": {
+    "source": "Man_nodding_to_music_1080p_20260929172258-frames.zip",
+    "preset": "card",
+    "desktop": {
+      "count": 120,
+      "width": 720,
+      "height": 1280
+    },
+    "mobile": {
+      "count": 80,
+      "width": 540,
+      "height": 960
+    }
+  },
+  "backdrop": {
+    "source": "Man_removing_sunglasses_1080p_20260929174055-frames.zip",
+    "preset": "background",
+    "desktop": {
+      "count": 96,
+      "width": 960,
+      "height": 540
+    },
+    "mobile": {
+      "count": 96,
+      "width": 400,
+      "height": 711
+    }
+  }
+}
