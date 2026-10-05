@@ -1,0 +1,305 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ------------------------------------------------------------------ */
+/*  Design tokens                                                      */
+/*  Light = "paper terminal"  ·  Dark = "midnight editor"              */
+/* ------------------------------------------------------------------ */
+
+:root {
+  --radius: 0.75rem;
+
+  --background: oklch(0.985 0.004 95);
+  --foreground: oklch(0.2 0.015 260);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.2 0.015 260);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.2 0.015 260);
+  --primary: oklch(0.56 0.15 152);
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: oklch(0.955 0.006 260);
+  --secondary-foreground: oklch(0.25 0.015 260);
+  --muted: oklch(0.955 0.006 260);
+  --muted-foreground: oklch(0.5 0.015 260);
+  --accent: oklch(0.94 0.02 152);
+  --accent-foreground: oklch(0.3 0.08 152);
+  --destructive: oklch(0.58 0.22 27);
+  --border: oklch(0.9 0.008 260);
+  --input: oklch(0.9 0.008 260);
+  --ring: oklch(0.56 0.15 152);
+
+  /* extra developer tokens */
+  --cyan: oklch(0.58 0.12 220);
+  --editor: oklch(0.975 0.005 260);
+  --editor-gutter: oklch(0.7 0.01 260);
+  --grid-line: oklch(0.2 0.015 260 / 0.06);
+
+  --syntax-keyword: oklch(0.52 0.2 320);
+  --syntax-string: oklch(0.55 0.14 152);
+  --syntax-fn: oklch(0.52 0.16 255);
+  --syntax-type: oklch(0.55 0.12 200);
+  --syntax-number: oklch(0.6 0.16 50);
+  --syntax-prop: oklch(0.45 0.08 260);
+  --syntax-comment: oklch(0.62 0.012 260);
+  --syntax-punct: oklch(0.45 0.015 260);
+}
+
+.dark {
+  --background: oklch(0.155 0.012 260);
+  --foreground: oklch(0.93 0.008 260);
+  --card: oklch(0.185 0.014 260);
+  --card-foreground: oklch(0.93 0.008 260);
+  --popover: oklch(0.185 0.014 260);
+  --popover-foreground: oklch(0.93 0.008 260);
+  --primary: oklch(0.84 0.19 150);
+  --primary-foreground: oklch(0.17 0.03 150);
+  --secondary: oklch(0.23 0.015 260);
+  --secondary-foreground: oklch(0.93 0.008 260);
+  --muted: oklch(0.23 0.015 260);
+  --muted-foreground: oklch(0.68 0.015 260);
+  --accent: oklch(0.26 0.04 150);
+  --accent-foreground: oklch(0.9 0.12 150);
+  --destructive: oklch(0.65 0.21 25);
+  --border: oklch(0.28 0.015 260);
+  --input: oklch(0.3 0.015 260);
+  --ring: oklch(0.84 0.19 150);
+
+  --cyan: oklch(0.8 0.12 210);
+  --editor: oklch(0.13 0.012 260);
+  --editor-gutter: oklch(0.45 0.015 260);
+  --grid-line: oklch(0.93 0.008 260 / 0.045);
+
+  --syntax-keyword: oklch(0.75 0.15 320);
+  --syntax-string: oklch(0.84 0.15 140);
+  --syntax-fn: oklch(0.78 0.12 250);
+  --syntax-type: oklch(0.82 0.11 200);
+  --syntax-number: oklch(0.8 0.14 60);
+  --syntax-prop: oklch(0.86 0.04 260);
+  --syntax-comment: oklch(0.55 0.015 260);
+  --syntax-punct: oklch(0.7 0.015 260);
+}
+
+@theme inline {
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, monospace;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-cyan: var(--cyan);
+  --color-editor: var(--editor);
+  --color-editor-gutter: var(--editor-gutter);
+  --color-syntax-keyword: var(--syntax-keyword);
+  --color-syntax-string: var(--syntax-string);
+  --color-syntax-fn: var(--syntax-fn);
+  --color-syntax-type: var(--syntax-type);
+  --color-syntax-number: var(--syntax-number);
+  --color-syntax-prop: var(--syntax-prop);
+  --color-syntax-comment: var(--syntax-comment);
+  --color-syntax-punct: var(--syntax-punct);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --animate-blink: blink 1.1s steps(1, end) infinite;
+  --animate-marquee: marquee var(--marquee-duration, 40s) linear infinite;
+  --animate-marquee-reverse: marquee var(--marquee-duration, 40s) linear infinite reverse;
+  --animate-marquee-y: marquee-y var(--marquee-duration, 90s) linear infinite;
+  --animate-marquee-y-reverse: marquee-y var(--marquee-duration, 90s) linear infinite reverse;
+  --animate-float: float 8s ease-in-out infinite;
+  --animate-pulse-ring: pulse-ring 2s cubic-bezier(0.2, 0.6, 0.4, 1) infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes marquee-y {
+  from { transform: translateY(0); }
+  to { transform: translateY(-50%); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  50% { transform: translate3d(0, -18px, 0) rotate(4deg); }
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.8); opacity: 0.8; }
+  100% { transform: scale(2.4); opacity: 0; }
+}
+
+@keyframes cell-in {
+  from { opacity: 0; transform: scale(0.2); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    color-scheme: light;
+  }
+  html.dark {
+    color-scheme: dark;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-feature-settings: "ss01", "cv11";
+  }
+  ::selection {
+    background: color-mix(in oklch, var(--primary) 30%, transparent);
+    color: var(--foreground);
+  }
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Utilities                                                          */
+/* ------------------------------------------------------------------ */
+
+@utility bg-grid {
+  background-image:
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+@utility bg-dots {
+  background-image: radial-gradient(var(--grid-line) 1.2px, transparent 1.2px);
+  background-size: 22px 22px;
+}
+
+@utility mask-fade-y {
+  mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
+}
+
+@utility mask-fade-x {
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+@utility mask-radial {
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+}
+
+@utility text-gradient {
+  background-image: linear-gradient(100deg, var(--primary), var(--cyan));
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/* Contribution heatmap: cells pop in diagonally once the grid is visible */
+.heatmap-cell {
+  opacity: 0;
+}
+.heatmap[data-visible="true"] .heatmap-cell {
+  animation: cell-in 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  animation-delay: calc(var(--d) * 9ms);
+}
+
+/* Border beam: a light that travels around the hero IDE's border */
+@property --beam-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes beam-spin {
+  to { --beam-angle: 360deg; }
+}
+.border-beam::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(
+    from var(--beam-angle),
+    transparent 0deg,
+    transparent 250deg,
+    var(--cyan) 300deg,
+    var(--primary) 340deg,
+    transparent 360deg
+  );
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  animation: beam-spin 6s linear infinite;
+  pointer-events: none;
+}
+
+/* Spotlight border used on project cards */
+.spotlight {
+  --x: 50%;
+  --y: 50%;
+}
+.spotlight::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: radial-gradient(
+    420px circle at var(--x) var(--y),
+    color-mix(in oklch, var(--primary) 70%, transparent),
+    transparent 45%
+  );
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+.spotlight:hover::before {
+  opacity: 1;
+}
+
+/* Theme switch: circular reveal via the View Transitions API */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .heatmap-cell {
+    opacity: 1;
+  }
+}
