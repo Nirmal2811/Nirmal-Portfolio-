@@ -38,7 +38,12 @@ export function BootScreen() {
   useEffect(() => {
     history.scrollRestoration = "manual";
     window.scrollTo(0, 0);
-  }, []);
+    // Phones skip the boot log (it is CSS-hidden there from the first paint) so content shows right away.
+    if (window.matchMedia("(max-width: 767.98px)").matches) {
+      setVisible(false);
+      markReady();
+    }
+  }, [markReady]);
 
   useEffect(() => {
     if (!visible) return;
@@ -78,7 +83,7 @@ export function BootScreen() {
           key="boot"
           role="status"
           aria-label="Loading portfolio"
-          className="fixed inset-0 z-[100] flex items-end bg-background font-mono text-xs sm:items-center sm:text-sm"
+          className="fixed inset-0 z-[100] hidden items-end md:flex bg-background font-mono text-xs sm:items-center sm:text-sm"
           exit={{ clipPath: "inset(0 0 100% 0)" }}
           transition={{ duration: 0.8, ease }}
         >

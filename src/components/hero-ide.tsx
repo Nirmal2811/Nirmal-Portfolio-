@@ -229,10 +229,10 @@ export function HeroIde({ ready }: { ready: boolean }) {
       animate={ready ? { opacity: 1, y: 0, scale: 1 } : undefined}
       transition={{ duration: 1, ease, delay: 0.45 }}
     >
-      <div className="absolute -inset-x-8 -inset-y-6 rounded-[2rem] bg-gradient-to-br from-primary/15 via-transparent to-cyan/15 blur-2xl" />
+      <div className="absolute -inset-x-8 -inset-y-6 hidden rounded-[2rem] bg-gradient-to-br from-primary/15 via-transparent to-cyan/15 blur-2xl md:block" />
 
       <div className="border-beam relative rounded-xl">
-        <div className="relative overflow-hidden rounded-xl border bg-editor font-mono shadow-2xl shadow-black/15 dark:shadow-black/50">
+        <div className="relative overflow-hidden rounded-xl border bg-editor font-mono shadow-lg shadow-black/10 md:shadow-2xl md:shadow-black/15 dark:shadow-black/40 md:dark:shadow-black/50">
           {/* title bar */}
           <div className="flex h-10 items-center gap-3 border-b px-4 text-[11px] text-muted-foreground">
             <div className="flex gap-1.5" aria-hidden="true">
@@ -257,7 +257,7 @@ export function HeroIde({ ready }: { ready: boolean }) {
 
           <div className="grid grid-cols-1 sm:grid-cols-[minmax(0,1fr)_10.5rem]">
             {/* code */}
-            <div className="overflow-x-auto py-3 text-[11.5px] sm:text-[12.5px]" style={{ minHeight: TOTAL_LINES * LINE_H + 24 }}>
+            <div className="no-scrollbar overflow-x-auto py-3 text-[11.5px] sm:text-[12.5px]" style={{ minHeight: TOTAL_LINES * LINE_H + 24 }}>
               <span className="sr-only">{FULL}</span>
               <div aria-hidden="true" className="min-w-max">
                 {lines.map((line, i) => {

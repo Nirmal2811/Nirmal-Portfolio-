@@ -119,7 +119,7 @@ export function Stack() {
               <ChevronDown className="size-3.5" />
               <Folder className="size-3.5 text-syntax-number" /> skills
             </div>
-            <div role="tablist" aria-label="Skill groups" className="flex gap-1 overflow-x-auto md:flex-col md:pl-4">
+            <div role="tablist" aria-label="Skill groups" className="no-scrollbar flex gap-1 overflow-x-auto md:flex-col md:pl-4">
               {skillGroups.map((g) => {
                 const selected = g.id === groupId;
                 return (
@@ -154,7 +154,7 @@ export function Stack() {
             ref={panelRef}
             id="skills-panel"
             role="tabpanel"
-            className="min-h-[340px] overflow-x-auto p-5 font-mono text-[12px] sm:p-6 sm:text-[13px]"
+            className="no-scrollbar min-h-[340px] overflow-x-auto p-5 font-mono text-[12px] sm:p-6 sm:text-[13px]"
           >
             <p className="text-muted-foreground">
               <span className="text-primary">❯</span> npm ls --depth=0 --workspace={group.label}

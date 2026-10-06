@@ -25,7 +25,7 @@ export function Hero() {
       <div className="relative mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-16 px-4 sm:px-6 lg:grid-cols-[1fr_1.12fr] lg:gap-10">
         <motion.div variants={stagger(0.1, 0.15)} initial="hidden" animate={ready ? "show" : "hidden"}>
           <motion.div variants={fadeUp}>
-            <span className="inline-flex items-center gap-2.5 rounded-full border bg-background/60 px-3 py-1 font-mono text-xs text-muted-foreground backdrop-blur">
+            <span className="inline-flex items-center gap-2.5 rounded-full border bg-background/60 px-3 py-1 font-mono text-xs text-muted-foreground md:backdrop-blur">
               <span className="relative flex size-2">
                 <span className="absolute inline-flex size-full animate-pulse-ring rounded-full bg-primary" />
                 <span className="relative inline-flex size-2 rounded-full bg-primary" />
@@ -70,7 +70,7 @@ export function Hero() {
             <Button
               size="lg"
               variant="outline"
-              className="group h-11 bg-background/50 font-mono backdrop-blur"
+              className="group h-11 bg-background/50 font-mono md:backdrop-blur"
               onClick={() => scrollTo("contact")}
             >
               <Send className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />

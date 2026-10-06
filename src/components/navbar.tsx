@@ -55,14 +55,15 @@ export function Navbar() {
         initial={{ y: -100, opacity: 0 }}
         animate={ready ? { y: 0, opacity: 1 } : undefined}
         transition={{ duration: 0.8, ease, delay: 0.1 }}
-        className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-4"
+        className="fixed inset-x-0 top-0 z-50 md:px-4 md:pt-3"
       >
+        {/* phones: a flush, solid bar (no backdrop blur) · md+: a floating frosted pill */}
         <nav
           aria-label="Primary"
           className={cn(
-            "mx-auto flex h-14 max-w-6xl items-center gap-2 rounded-xl border px-2 pl-4 transition-all duration-500",
+            "mx-auto flex h-14 max-w-6xl items-center gap-2 border-b px-2 pl-4 transition-[background-color,border-color] duration-200 md:rounded-xl md:border md:transition-all md:duration-500",
             scrolled || mobileOpen
-              ? "border-border/80 bg-background/75 shadow-lg shadow-black/5 backdrop-blur-xl"
+              ? "border-border bg-background md:border-border/80 md:bg-background/75 md:shadow-lg md:shadow-black/5 md:backdrop-blur-xl"
               : "border-transparent bg-transparent",
           )}
         >
@@ -144,7 +145,7 @@ export function Navbar() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -8, scale: 0.98 }}
               transition={{ duration: 0.2 }}
-              className="mx-auto mt-2 max-w-6xl overflow-hidden rounded-xl border bg-background/90 p-2 shadow-xl backdrop-blur-xl lg:hidden"
+              className="mx-auto max-w-6xl overflow-hidden border-b bg-background p-2 shadow-xl md:mt-2 md:rounded-xl md:border md:bg-background/90 md:backdrop-blur-xl lg:hidden"
             >
               <p className="px-3 pt-1 pb-2 font-mono text-[11px] tracking-wider text-muted-foreground uppercase">
                 Explorer

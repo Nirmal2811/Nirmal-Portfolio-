@@ -212,6 +212,14 @@
   mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
 }
 
+/* Scrollable, but without a visible scrollbar */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 @utility text-gradient {
   background-image: linear-gradient(100deg, var(--primary), var(--cyan));
   background-clip: text;
@@ -256,6 +264,12 @@
   mask-composite: exclude;
   animation: beam-spin 6s linear infinite;
   pointer-events: none;
+}
+/* Repainting the conic gradient every frame is costly on phones */
+@media (max-width: 47.99rem) {
+  .border-beam::before {
+    display: none;
+  }
 }
 
 /* Spotlight border used on project cards */

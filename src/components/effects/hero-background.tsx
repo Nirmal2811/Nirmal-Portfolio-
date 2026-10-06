@@ -4,6 +4,7 @@ import { motion, useMotionTemplate, useMotionValue, useSpring } from "framer-mot
 import { useEffect, useRef } from "react";
 
 import { CodeBlock } from "@/components/effects/code-block";
+import { useMediaQuery } from "@/hooks/use-media-query";
 import { codeWallColumns } from "@/lib/code-wall";
 import { cn } from "@/lib/utils";
 
@@ -55,7 +56,11 @@ export function HeroBackground() {
   const flashlight = useMotionTemplate`radial-gradient(240px circle at ${x}px ${y}px, black 20%, transparent 100%)`;
   const glow = useMotionTemplate`radial-gradient(420px circle at ${x}px ${y}px, color-mix(in oklch, var(--primary) 10%, transparent), transparent 70%)`;
 
+  // Phones get a static backdrop: the scrolling code wall and huge blurs are too heavy to paint there.
+  const desktop = useMediaQuery("(min-width: 768px)");
+
   useEffect(() => {
+    if (!desktop) return;
     const onMove = (e: PointerEvent) => {
       const rect = ref.current?.getBoundingClientRect();
       if (!rect) return;
@@ -64,27 +69,38 @@ export function HeroBackground() {
     };
     window.addEventListener("pointermove", onMove, { passive: true });
     return () => window.removeEventListener("pointermove", onMove);
-  }, [mx, my]);
+  }, [desktop, mx, my]);
 
   return (
     <div ref={ref} aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden select-none">
-      {/* dim code, faded towards the edges */}
-      <div className="absolute inset-0 opacity-[0.07] mask-fade-y md:opacity-[0.13] dark:opacity-[0.08] md:dark:opacity-[0.11]">
-        <CodeWall />
-      </div>
+      {desktop ? (
+        <>
+          {/* dim code, faded towards the edges */}
+          <div className="absolute inset-0 opacity-[0.13] mask-fade-y dark:opacity-[0.11]">
+            <CodeWall />
+          </div>
 
-      {/* the same code, brightly lit under the cursor */}
-      <div className="absolute inset-0 hidden opacity-70 mask-fade-y md:block">
-        <CodeWall style={{ maskImage: flashlight, WebkitMaskImage: flashlight }} />
-      </div>
-      <motion.div className="absolute inset-0" style={{ background: glow }} />
+          {/* the same code, brightly lit under the cursor */}
+          <div className="absolute inset-0 opacity-70 mask-fade-y">
+            <CodeWall style={{ maskImage: flashlight, WebkitMaskImage: flashlight }} />
+          </div>
+          <motion.div className="absolute inset-0" style={{ background: glow }} />
 
-      {/* soften the area behind the headline so it stays readable */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_55%_at_25%_50%,var(--background)_15%,transparent_75%)] opacity-80" />
+          {/* soften the area behind the headline so it stays readable */}
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_55%_at_25%_50%,var(--background)_15%,transparent_75%)] opacity-80" />
 
-      {/* ambient glow */}
-      <div className="absolute -top-40 left-1/2 h-[480px] w-[780px] -translate-x-1/2 rounded-full bg-primary/10 blur-[120px]" />
-      <div className="absolute right-[-10%] bottom-[-20%] h-[380px] w-[480px] rounded-full bg-cyan/10 blur-[120px]" />
+          {/* ambient glow */}
+          <div className="absolute -top-40 left-1/2 h-[480px] w-[780px] -translate-x-1/2 rounded-full bg-primary/10 blur-[120px]" />
+          <div className="absolute right-[-10%] bottom-[-20%] h-[380px] w-[480px] rounded-full bg-cyan/10 blur-[120px]" />
+        </>
+      ) : (
+        <>
+          {/* faint grid + soft gradients instead of blur filters */}
+          <div className="absolute inset-0 bg-grid mask-radial opacity-60" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_90%_45%_at_50%_0%,color-mix(in_oklch,var(--primary)_14%,transparent),transparent_70%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_40%_at_100%_100%,color-mix(in_oklch,var(--cyan)_12%,transparent),transparent_70%)]" />
+        </>
+      )}
 
       <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-background" />
     </div>

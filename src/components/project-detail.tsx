@@ -173,7 +173,7 @@ export function ProjectDetail({ project, prev, next }: ProjectDetailProps) {
 
             {/* code excerpt */}
             <motion.div variants={fadeUp}>
-              <WindowChrome title={project.file} bodyClassName="overflow-x-auto bg-editor/70 p-5">
+              <WindowChrome title={project.file} bodyClassName="no-scrollbar overflow-x-auto bg-editor/70 p-5">
                 <CodeBlock code={project.snippet} lineNumbers className="text-[12px]" />
               </WindowChrome>
             </motion.div>
