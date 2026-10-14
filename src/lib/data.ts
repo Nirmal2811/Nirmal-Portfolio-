@@ -31,6 +31,9 @@ export const socials: { name: SocialName; href: string; handle: string }[] = [
   { name: "LinkedIn", href: "https://www.linkedin.com/in/nirmalkm2811", handle: "in/nirmalkm2811" },
 ];
 
+/** Opens a chat from the floating WhatsApp button (country code + number, digits only). */
+export const whatsapp = "https://wa.me/918489798440";
+
 /** Sections of the home page. Each renders as an editor tab in the navbar; `id` must match a section id. */
 export const sections = [
   { id: "home", file: "index.tsx", label: "Home" },

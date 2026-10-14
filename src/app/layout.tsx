@@ -3,10 +3,10 @@ import { Geist, JetBrains_Mono } from "next/font/google";
 import "lenis/dist/lenis.css";
 
 import { BootScreen } from "@/components/boot-screen";
+import { FloatingActions } from "@/components/floating-actions";
 import { Navbar } from "@/components/navbar";
 import { Providers } from "@/components/providers/providers";
 import { ScrollProgress } from "@/components/scroll-progress";
-import { ScrollToTop } from "@/components/scroll-to-top";
 import { StatusBar } from "@/components/status-bar";
 import { profile } from "@/lib/data";
 
@@ -68,7 +68,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <ScrollProgress />
           <Navbar />
           <main id="main">{children}</main>
-          <ScrollToTop />
+          <FloatingActions />
           <StatusBar />
         </Providers>
       </body>
